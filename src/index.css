@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+@theme {
+  --color-urp-bg-top: #070912;
+  --color-urp-bg-bottom: #05070e;
+  --color-urp-surface: rgba(11, 13, 20, 0.9);
+  --color-urp-elevated: rgba(20, 22, 32, 0.94);
+  --color-urp-border: rgba(255, 255, 255, 0.08);
+  --color-urp-border-strong: rgba(255, 255, 255, 0.14);
+  --color-urp-purple: #8b5cf6;
+  --color-urp-cyan: #36c0ff;
+  --color-urp-green: #22c55e;
+  --color-urp-amber: #f59e0b;
+  --color-urp-red: #ef4444;
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --cut-btn: 8px;
+  --cut-block: 12px;
+  --cut-panel: 16px;
+}
+
+* {
+  font-variant-numeric: tabular-nums;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--color-urp-bg-top), var(--color-urp-bg-bottom));
+  color: #fff;
+  font-family: var(--font-sans);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- UnderRP diagonal clip system ---------- */
+/* Frame holds the border color + 1px padding. Surface sits
+   inside with a 1px-smaller diagonal cut, so a diagonal-aware
+   border shows through the gap. */
+.clip-frame {
+  position: relative;
+  padding: 1px;
+  background: var(--color-urp-border);
+  --c-frame: 16px;
+  --c-surface: 15px;
+  clip-path: polygon(
+    var(--c-frame) 0,
+    100% 0,
+    100% calc(100% - var(--c-frame)),
+    calc(100% - var(--c-frame)) 100%,
+    0 100%,
+    0 var(--c-frame)
+  );
+}
+.clip-surface {
+  position: relative;
+  background: var(--color-urp-surface);
+  clip-path: polygon(
+    var(--c-surface) 0,
+    100% 0,
+    100% calc(100% - var(--c-surface)),
+    calc(100% - var(--c-surface)) 100%,
+    0 100%,
+    0 var(--c-surface)
+  );
+}
+.clip-btn {
+  --c-frame: 8px;
+  --c-surface: 7px;
+}
+.clip-block {
+  --c-frame: 12px;
+  --c-surface: 11px;
+}
+.clip-panel {
+  --c-frame: 16px;
+  --c-surface: 15px;
+}
+.clip-frame:focus-within {
+  background: rgba(54, 192, 255, 0.55);
+}
+.clip-frame.is-selected {
+  background: var(--color-urp-cyan);
+}
+.clip-frame.is-accent {
+  background: var(--color-urp-purple);
+}
+
+/* ---------- Scrollbars ---------- */
+.urp-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.urp-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.urp-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+}
+.urp-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- React Flow overrides ---------- */
+.react-flow {
+  background: transparent;
+  font-family: var(--font-sans);
+}
+.react-flow__pane {
+  cursor: grab;
+}
+.react-flow__pane.dragging {
+  cursor: grabbing;
+}
+.react-flow__node {
+  cursor: move;
+}
+.react-flow__node:hover .clip-frame {
+  background: var(--color-urp-border-strong);
+}
+.react-flow__node.selected .clip-frame {
+  background: var(--color-urp-cyan);
+}
+.react-flow__node.selected:hover .clip-frame {
+  background: var(--color-urp-cyan);
+}
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: var(--color-urp-elevated);
+  border: 1px solid var(--color-urp-border-strong);
+  border-radius: 0;
+  transform: rotate(45deg);
+  transition: background 120ms, border-color 120ms, opacity 120ms;
+  opacity: 0.55;
+}
+.react-flow__handle:hover {
+  background: var(--color-urp-cyan);
+  border-color: var(--color-urp-cyan);
+  opacity: 1;
+}
+.react-flow__node:hover .react-flow__handle {
+  opacity: 0.9;
+}
+.react-flow__node.selected .react-flow__handle {
+  background: var(--color-urp-cyan);
+  border-color: var(--color-urp-cyan);
+  opacity: 1;
+}
+.react-flow__handle-left {
+  left: -5px;
+  top: 50%;
+}
+.react-flow__handle-right {
+  right: -5px;
+  top: 50%;
+}
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+.react-flow__edge.animated .react-flow__edge-path {
+  animation: none;
+}
+.react-flow__controls {
+  display: none;
+}
+.react-flow__minimap {
+  display: none;
+}
+.react-flow__background {
+  opacity: 0.55;
+}
+
+/* ---------- Animations ---------- */
+@keyframes urp-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes urp-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes urp-node-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes urp-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.urp-fade {
+  animation: urp-fade-in 180ms ease-out;
+}
+.urp-slide {
+  animation: urp-slide-in 200ms ease-out;
+}
+.urp-node-in {
+  animation: urp-node-in 200ms ease-out;
+}
+.urp-toast {
+  animation: urp-toast-in 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- Inputs ---------- */
+.urp-input {
+  width: 100%;
+  background: rgba(5, 7, 14, 0.7);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 7px 10px;
+  border: none;
+  outline: none;
+}
+.urp-input::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+.urp-input:focus {
+  background: rgba(5, 7, 14, 0.9);
+}
+
+.urp-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.urp-section-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.urp-divider {
+  height: 1px;
+  background: var(--color-urp-border);
+}
+
+/* tooltip */
+.urp-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-urp-elevated);
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms;
+}
+.has-tooltip {
+  position: relative;
+}
+.has-tooltip:hover .urp-tooltip {
+  opacity: 1;
+}
