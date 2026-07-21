@@ -53,7 +53,7 @@ export function Sidebar() {
   if (collapsed) return null;
 
   return (
-    <aside className="relative z-20 flex h-full w-[260px] shrink-0 flex-col border-r border-urp-border bg-urp-surface">
+    <aside className="relative z-20 flex h-full w-[260px] shrink-0 flex-col border-r border-urp-border bg-urp-surface shadow-[8px_0_28px_rgba(0,0,0,.14)]">
       <div className="flex items-center justify-between px-4 pb-2 pt-3">
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
           Itens

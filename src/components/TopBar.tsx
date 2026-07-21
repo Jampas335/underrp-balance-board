@@ -137,7 +137,7 @@ export function TopBar({
   }
 
   return (
-    <header className="relative z-30 flex h-14 items-center gap-3 border-b border-urp-border bg-urp-surface px-4">
+    <header className="relative z-30 flex h-14 items-center gap-3 border-b border-urp-border bg-urp-surface px-4 shadow-[0_8px_28px_rgba(0,0,0,.18)]">
       {/* Brand */}
       <div className="flex items-center gap-2.5">
         <div className="flex h-7 w-7 items-center justify-center bg-urp-purple">
@@ -186,7 +186,7 @@ export function TopBar({
       <div className="ml-1 flex items-center gap-1.5">
         <span
           className={cn(
-            "h-1.5 w-1.5",
+            "h-1.5 w-1.5 shadow-[0_0_10px_rgba(34,197,94,.35)]",
             saveStatus === "saving" ? "bg-urp-amber" : "bg-urp-green"
           )}
         />
