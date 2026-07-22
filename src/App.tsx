@@ -69,6 +69,9 @@ function AppInner() {
     void loadRemoteCatalog().catch(() => {
       // O catálogo local continua disponível como fallback offline.
     });
+    const catalogRefresh = window.setInterval(() => {
+      void loadRemoteCatalog().catch(() => undefined);
+    }, 5 * 60 * 1000);
 
     void loadRemoteBoard()
       .then((remote) => {
@@ -90,6 +93,7 @@ function AppInner() {
 
     return () => {
       active = false;
+      window.clearInterval(catalogRefresh);
     };
   }, [load, replaceBoard, setRemoteSha, setRemoteStatus, rf]);
 
