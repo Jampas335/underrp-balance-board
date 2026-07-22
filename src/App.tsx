@@ -167,7 +167,11 @@ function AppInner() {
       );
       if (updates.length > 0 && (editingEnabled || updates.every((change) => change.type === "select"))) {
         const currentNodes = useBoard.getState().nodes;
+        const movingIds = new Set(
+          updates.filter((change) => change.type === "position").map((change) => change.id)
+        );
         const updated = applyNodeChanges(updates, currentNodes).map((node) => {
+          if (!movingIds.has(node.id) || movingIds.size > 1) return node;
           const others = currentNodes.filter((other) => other.id !== node.id);
           let x = node.position.x;
           let y = node.position.y;
