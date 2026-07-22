@@ -34,6 +34,20 @@ function isInputFocused(): boolean {
   );
 }
 
+function hydrateCatalogNodes() {
+  const current = useBoard.getState();
+  const byId = new Map(CATALOG.map((item) => [item.id, item]));
+  useBoard.setState({
+    nodes: current.nodes.map((node) => {
+      if (node.data.kind !== "item") return node;
+      const item = byId.get(node.data.itemId) || byId.get(node.data.identifier);
+      return item
+        ? { ...node, data: { ...node.data, imageUrl: item.imageUrl, icon: item.icon, color: "#36c0ff" } }
+        : node;
+    }),
+  });
+}
+
 function AppInner() {
   const rf = useReactFlow();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -69,16 +83,7 @@ function AppInner() {
     let active = true;
 
     void loadRemoteCatalog().then(() => {
-      const current = useBoard.getState();
-      const byId = new Map(CATALOG.map((item) => [item.id, item]));
-      const hydrated = current.nodes.map((node) => {
-        if (node.data.kind !== "item") return node;
-        const catalogItem = byId.get(node.data.itemId) || byId.get(node.data.identifier);
-        return catalogItem?.imageUrl
-          ? { ...node, data: { ...node.data, imageUrl: catalogItem.imageUrl } }
-          : node;
-      });
-      useBoard.setState({ nodes: hydrated });
+      hydrateCatalogNodes();
     }).catch(() => {
       // O catálogo local continua disponível como fallback offline.
     });
@@ -102,6 +107,7 @@ function AppInner() {
           return;
         }
         replaceBoard({ nodes: remote.nodes, edges: remote.edges });
+        hydrateCatalogNodes();
         setRemoteSha(remote.sha);
         setRemoteStatus("Quadro remoto carregado");
         window.setTimeout(() => {
