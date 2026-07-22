@@ -1,126 +1,8 @@
-import type { BoardNode, BoardEdge, CatalogItem, ActivityData } from "./types";
+﻿import type { BoardNode, BoardEdge, CatalogItem, ActivityData } from "./types";
 
-export let CATALOG: CatalogItem[] = [
-  {
-    id: "sucata_eletronica",
-    name: "Sucata Eletrônica",
-    identifier: "sucata_elec",
-    category: "Sucata",
-    referenceValue: 180,
-    icon: "Cpu",
-    color: "#36c0ff",
-  },
-  {
-    id: "joia_perdida",
-    name: "Joia Perdida",
-    identifier: "joia_perdida",
-    category: "Joia",
-    referenceValue: 1200,
-    icon: "Gem",
-    color: "#8b5cf6",
-  },
-  {
-    id: "peca_metalica",
-    name: "Peça Metálica",
-    identifier: "peca_metal",
-    category: "Sucata",
-    referenceValue: 90,
-    icon: "Wrench",
-    color: "#94a3b8",
-  },
-  {
-    id: "documento_molhado",
-    name: "Documento Molhado",
-    identifier: "doc_molhado",
-    category: "Documento",
-    referenceValue: 350,
-    icon: "FileText",
-    color: "#22c55e",
-  },
-  {
-    id: "minerio_ferro",
-    name: "Minério de Ferro",
-    identifier: "minerio_fe",
-    category: "Minério",
-    referenceValue: 120,
-    icon: "Mountain",
-    color: "#a16207",
-  },
-  {
-    id: "minerio_ouro",
-    name: "Minério de Ouro",
-    identifier: "minerio_au",
-    category: "Minério",
-    referenceValue: 650,
-    icon: "Mountain",
-    color: "#f59e0b",
-  },
-  {
-    id: "lingote_ferro",
-    name: "Lingote de Ferro",
-    identifier: "lingote_fe",
-    category: "Material",
-    referenceValue: 280,
-    icon: "Boxes",
-    color: "#94a3b8",
-  },
-  {
-    id: "lingote_ouro",
-    name: "Lingote de Ouro",
-    identifier: "lingote_au",
-    category: "Material",
-    referenceValue: 1400,
-    icon: "Boxes",
-    color: "#f59e0b",
-  },
-  {
-    id: "kit_mergulho",
-    name: "Kit de Mergulho",
-    identifier: "kit_mergulho",
-    category: "Equipamento",
-    referenceValue: 1200,
-    icon: "Waves",
-    color: "#36c0ff",
-  },
-  {
-    id: "combustivel",
-    name: "Combustível",
-    identifier: "combustivel",
-    category: "Consumível",
-    referenceValue: 250,
-    icon: "Fuel",
-    color: "#f59e0b",
-  },
-  {
-    id: "colete_balistico",
-    name: "Colete Balístico",
-    identifier: "colete",
-    category: "Equipamento",
-    referenceValue: 800,
-    icon: "Shield",
-    color: "#36c0ff",
-  },
-  {
-    id: "peca_rara",
-    name: "Peça Rara",
-    identifier: "peca_rara",
-    category: "Componente",
-    referenceValue: 540,
-    icon: "Cog",
-    color: "#8b5cf6",
-  },
-];
+export let CATALOG: CatalogItem[] = [];
 
-export let CATALOG_CATEGORIES: string[] = [
-  "Sucata",
-  "Joia",
-  "Documento",
-  "Minério",
-  "Material",
-  "Equipamento",
-  "Consumível",
-  "Componente",
-];
+export let CATALOG_CATEGORIES: string[] = [];
 
 export const CATALOG_SOURCE_URL = "https://jampas335.github.io/underp-itens/data/ready-items-export.json";
 const catalogListeners = new Set<() => void>();
@@ -132,7 +14,7 @@ export function subscribeCatalog(listener: () => void): () => void {
 
 export async function loadRemoteCatalog(): Promise<number> {
   const response = await fetch(`${CATALOG_SOURCE_URL}?t=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Catálogo indisponível (${response.status})`);
+  if (!response.ok) throw new Error(`CatÃ¡logo indisponÃ­vel (${response.status})`);
   const payload = (await response.json()) as { items?: Array<Record<string, unknown>> };
   const items = (payload.items ?? [])
     .filter((item) => typeof item.id === "string" && typeof item.name === "string")
@@ -146,15 +28,15 @@ export async function loadRemoteCatalog(): Promise<number> {
       color: String(item.type) === "weapon" ? "#f59e0b" : "#36c0ff",
       imageUrl: typeof item.imageUrl === "string" ? item.imageUrl : undefined,
     }));
-  if (!items.length) throw new Error("Catálogo remoto vazio");
+  if (!items.length) throw new Error("CatÃ¡logo remoto vazio");
   CATALOG = items;
   CATALOG_CATEGORIES = [...new Set(items.map((item) => item.category))].sort((a, b) => a.localeCompare(b, "pt-BR"));
   catalogListeners.forEach((listener) => listener());
   return items.length;
 }
 
-export function findCatalogItem(id: string): CatalogItem | undefined {
-  return CATALOG.find((c) => c.id === id);
+export function findCatalogItem(id: string): CatalogItem {
+  return CATALOG.find((c) => c.id === id) ?? { id, name: id, identifier: id, category: "Remoto", referenceValue: 0, icon: "Boxes", color: "#36c0ff" };
 }
 
 export function buildInitialNodes(): BoardNode[] {
@@ -163,7 +45,7 @@ export function buildInitialNodes(): BoardNode[] {
     name: "Mergulho Ilegal",
     category: "Criminal",
     status: "Ativo",
-    description: "Recupera materiais submersos em área restrita.",
+    description: "Recupera materiais submersos em Ã¡rea restrita.",
     durationMin: 20,
     playersMin: 1,
     playersMax: 2,
@@ -176,10 +58,10 @@ export function buildInitialNodes(): BoardNode[] {
 
   const mineracao: ActivityData = {
     kind: "activity",
-    name: "Mineração",
+    name: "MineraÃ§Ã£o",
     category: "Industrial",
     status: "Ativo",
-    description: "Extração de minério bruto em pedreira.",
+    description: "ExtraÃ§Ã£o de minÃ©rio bruto em pedreira.",
     durationMin: 15,
     playersMin: 1,
     playersMax: 3,
@@ -192,10 +74,10 @@ export function buildInitialNodes(): BoardNode[] {
 
   const fundicao: ActivityData = {
     kind: "activity",
-    name: "Fundição",
+    name: "FundiÃ§Ã£o",
     category: "Industrial",
     status: "Ativo",
-    description: "Refina minério em lingotes comercializáveis.",
+    description: "Refina minÃ©rio em lingotes comercializÃ¡veis.",
     durationMin: 10,
     playersMin: 1,
     playersMax: 2,
@@ -203,7 +85,7 @@ export function buildInitialNodes(): BoardNode[] {
     paymentMin: 0,
     paymentMax: 0,
     moneyType: "limpo",
-    observation: "Processamento intermediário.",
+    observation: "Processamento intermediÃ¡rio.",
   };
 
   const sucatItem = findCatalogItem("sucata_eletronica")!;
@@ -349,7 +231,7 @@ export function buildInitialNodes(): BoardNode[] {
       data: {
         kind: "note",
         title: "ECONOMIA GERAL",
-        text: "Mapa técnico de atividades, itens e fluxos de valor do UnderRP.",
+        text: "Mapa tÃ©cnico de atividades, itens e fluxos de valor do UnderRP.",
       },
     },
   ];
@@ -473,3 +355,7 @@ export function buildInitialEdges(): BoardEdge[] {
     },
   ];
 }
+
+
+
+
