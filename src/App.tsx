@@ -13,7 +13,7 @@ import {
 import { useBoard, resolveEdgeType, createItemNode } from "./lib/store";
 import { EDGE_COLORS } from "./lib/types";
 import type { BoardEdge } from "./lib/types";
-import { loadRemoteBoard } from "./lib/github";
+import { getSessionToken, loadRemoteBoard } from "./lib/github";
 import { loadRemoteCatalog } from "./lib/data";
 import { nodeTypes } from "./components/Nodes";
 import { edgeTypes } from "./components/Edge";
@@ -61,9 +61,11 @@ function AppInner() {
   const replaceBoard = useBoard((s) => s.replaceBoard);
   const setRemoteStatus = useBoard((s) => s.setRemoteStatus);
   const setRemoteSha = useBoard((s) => s.setRemoteSha);
+  const setEditingEnabled = useBoard((s) => s.setEditingEnabled);
 
   useEffect(() => {
     load();
+    if (getSessionToken()) setEditingEnabled(true);
     let active = true;
 
     void loadRemoteCatalog().catch(() => {
@@ -95,7 +97,7 @@ function AppInner() {
       active = false;
       window.clearInterval(catalogRefresh);
     };
-  }, [load, replaceBoard, setRemoteSha, setRemoteStatus, rf]);
+  }, [load, replaceBoard, setRemoteSha, setRemoteStatus, setEditingEnabled, rf]);
 
   useEffect(() => {
     if (!loaded) return;

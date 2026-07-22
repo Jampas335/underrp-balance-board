@@ -60,19 +60,19 @@ export function getGitHubTarget(): string {
 
 export function getSessionToken(): string {
   try {
-    return sessionStorage.getItem(TOKEN_KEY) || "";
+    return localStorage.getItem(TOKEN_KEY) || "";
   } catch {
     return "";
   }
 }
 
 export function setSessionToken(token: string): void {
-  sessionStorage.setItem(TOKEN_KEY, token.trim());
+  localStorage.setItem(TOKEN_KEY, token.trim());
 }
 
 export function clearSessionToken(): void {
   try {
-    sessionStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(TOKEN_KEY);
   } catch {
     // A ausência de storage apenas mantém a sessão em modo leitura.
   }

@@ -397,7 +397,7 @@ export function EditTokenModal() {
                 </div>
               </div>
               <p aria-live="polite" className="min-h-4 font-mono text-[10px] leading-relaxed text-white/40">
-                {message || "O token fica somente nesta sessão do navegador."}
+                {message || "O token fica salvo neste navegador até você bloquear a edição."}
               </p>
               <div className="flex items-center justify-end gap-3 border-t border-urp-border pt-3">
                 <button
