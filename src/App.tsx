@@ -230,7 +230,7 @@ function AppInner() {
           qtyMin: 1,
           qtyMax: 1,
           chance: 100,
-          consumes: false,
+          consumes: true,
           observation: "",
         },
       };
