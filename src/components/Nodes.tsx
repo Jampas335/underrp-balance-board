@@ -114,26 +114,9 @@ function ActivityNodeInner({ id, data }: NodeProps<BoardNode>) {
         </div>
         <div className="urp-divider my-2.5" />
         <div className="space-y-1">
-          <Stat label="REQUISITOS" value={String(requisitos)} />
-          <Stat label="RECOMPENSAS" value={String(recompensas)} />
-          <Stat
-            label="PAGAMENTO"
-            value={hasPayment ? formatRange(d.paymentMin, d.paymentMax) : "—"}
-            accent={hasPayment ? (d.moneyType === "sujo" ? "amber" : "green") : undefined}
-          />
-        </div>
-        <div className="mt-2.5 flex items-center gap-2 font-mono text-[10px] text-white/40">
-          <span>{d.durationMin}min</span>
-          <span className="text-white/20">·</span>
-          <span>
-            {d.playersMin}–{d.playersMax}p
-          </span>
-          {d.cooldownMin > 0 && (
-            <>
-              <span className="text-white/20">·</span>
-              <span>cd {d.cooldownMin}min</span>
-            </>
-          )}
+          {requisitos > 0 && <Stat label="REQUISITOS" value={String(requisitos)} />}
+          {recompensas > 0 && <Stat label="RECOMPENSAS" value={String(recompensas)} />}
+          {hasPayment && <Stat label="PAGAMENTO" value={formatRange(d.paymentMin, d.paymentMax)} accent={d.moneyType === "sujo" ? "amber" : "green"} />}
         </div>
       </div>
     </NodeShell>

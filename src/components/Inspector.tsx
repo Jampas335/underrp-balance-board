@@ -250,50 +250,6 @@ function ActivityInspector({
         <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>
       </Field>
       <div className="urp-divider mx-4" />
-
-      <SectionTitle>Parâmetros</SectionTitle>
-      <div className="space-y-2.5 px-4 pb-3">
-        <div className="grid grid-cols-2 gap-2">
-          <Field label="Duração">
-            <NumberInput
-              value={data.durationMin}
-              onChange={(v) => u({ durationMin: v })}
-              onCommit={commit}
-              min={0}
-              suffix="min"
-            />
-          </Field>
-          <Field label="Cooldown">
-            <NumberInput
-              value={data.cooldownMin}
-              onChange={(v) => u({ cooldownMin: v })}
-              onCommit={commit}
-              min={0}
-              suffix="min"
-            />
-          </Field>
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <Field label="Jogadores mín.">
-            <NumberInput
-              value={data.playersMin}
-              onChange={(v) => u({ playersMin: v })}
-              onCommit={commit}
-              min={1}
-            />
-          </Field>
-          <Field label="Jogadores máx.">
-            <NumberInput
-              value={data.playersMax}
-              onChange={(v) => u({ playersMax: v })}
-              onCommit={commit}
-              min={1}
-            />
-          </Field>
-        </div>
-      </div>
-      <div className="urp-divider mx-4" />
-
       <SectionTitle>Pagamento</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
         <div className="grid grid-cols-2 gap-2">
@@ -747,6 +703,8 @@ export function Inspector() {
     </div>
   );
 }
+
+
 
 
 
