@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Cpu,
   Gem,
@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useBoard } from "../lib/store";
-import { CATALOG, CATALOG_CATEGORIES } from "../lib/data";
+import { CATALOG, CATALOG_CATEGORIES, subscribeCatalog } from "../lib/data";
 import { cn } from "../utils/cn";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -30,6 +30,8 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 export function Sidebar() {
+  const [, refreshCatalog] = useState(0);
+  useEffect(() => subscribeCatalog(() => refreshCatalog((value) => value + 1)), []);
   const collapsed = useBoard((s) => s.sidebarCollapsed);
   const searchQuery = useBoard((s) => s.searchQuery);
   const setSearchQuery = useBoard((s) => s.setSearchQuery);
@@ -127,13 +129,17 @@ export function Sidebar() {
               )}
             >
               <div
-                className="flex h-7 w-7 shrink-0 items-center justify-center"
+                className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden"
                 style={{
                   background: `${item.color}14`,
                   border: `1px solid ${item.color}30`,
                 }}
               >
-                <Icon size={13} style={{ color: item.color }} strokeWidth={1.5} />
+                {item.imageUrl ? (
+                  <img src={item.imageUrl} alt="" width={28} height={28} loading="lazy" className="h-full w-full object-contain" />
+                ) : (
+                  <Icon size={13} style={{ color: item.color }} strokeWidth={1.5} />
+                )}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate font-display text-sm font-500 uppercase leading-tight tracking-wide text-white/88 group-hover:text-white">

@@ -87,6 +87,7 @@ export interface CatalogItem {
   referenceValue: number;
   icon: string;
   color: string;
+  imageUrl?: string;
 }
 
 export const EDGE_COLORS: Record<EdgeType, string> = {

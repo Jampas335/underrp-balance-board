@@ -14,6 +14,7 @@ import { useBoard, resolveEdgeType, createItemNode } from "./lib/store";
 import { EDGE_COLORS } from "./lib/types";
 import type { BoardEdge } from "./lib/types";
 import { loadRemoteBoard } from "./lib/github";
+import { loadRemoteCatalog } from "./lib/data";
 import { nodeTypes } from "./components/Nodes";
 import { edgeTypes } from "./components/Edge";
 import { TopBar } from "./components/TopBar";
@@ -64,6 +65,10 @@ function AppInner() {
   useEffect(() => {
     load();
     let active = true;
+
+    void loadRemoteCatalog().catch(() => {
+      // O catálogo local continua disponível como fallback offline.
+    });
 
     void loadRemoteBoard()
       .then((remote) => {

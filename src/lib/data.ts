@@ -1,6 +1,6 @@
 import type { BoardNode, BoardEdge, CatalogItem, ActivityData } from "./types";
 
-export const CATALOG: CatalogItem[] = [
+export let CATALOG: CatalogItem[] = [
   {
     id: "sucata_eletronica",
     name: "Sucata Eletrônica",
@@ -111,7 +111,7 @@ export const CATALOG: CatalogItem[] = [
   },
 ];
 
-export const CATALOG_CATEGORIES = [
+export let CATALOG_CATEGORIES: string[] = [
   "Sucata",
   "Joia",
   "Documento",
@@ -121,6 +121,37 @@ export const CATALOG_CATEGORIES = [
   "Consumível",
   "Componente",
 ];
+
+export const CATALOG_SOURCE_URL = "https://jampas335.github.io/underp-itens/data/ready-items-export.json";
+const catalogListeners = new Set<() => void>();
+
+export function subscribeCatalog(listener: () => void): () => void {
+  catalogListeners.add(listener);
+  return () => catalogListeners.delete(listener);
+}
+
+export async function loadRemoteCatalog(): Promise<number> {
+  const response = await fetch(`${CATALOG_SOURCE_URL}?t=${Date.now()}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Catálogo indisponível (${response.status})`);
+  const payload = (await response.json()) as { items?: Array<Record<string, unknown>> };
+  const items = (payload.items ?? [])
+    .filter((item) => typeof item.id === "string" && typeof item.name === "string")
+    .map((item): CatalogItem => ({
+      id: String(item.id),
+      name: String(item.label || item.name),
+      identifier: String(item.name),
+      category: String(item.category || "Outros"),
+      referenceValue: Number(item.referenceValue ?? item.value ?? 0) || 0,
+      icon: String(item.type) === "weapon" ? "Shield" : "Boxes",
+      color: String(item.type) === "weapon" ? "#f59e0b" : "#36c0ff",
+      imageUrl: typeof item.imageUrl === "string" ? item.imageUrl : undefined,
+    }));
+  if (!items.length) throw new Error("Catálogo remoto vazio");
+  CATALOG = items;
+  CATALOG_CATEGORIES = [...new Set(items.map((item) => item.category))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+  catalogListeners.forEach((listener) => listener());
+  return items.length;
+}
 
 export function findCatalogItem(id: string): CatalogItem | undefined {
   return CATALOG.find((c) => c.id === id);
