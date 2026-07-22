@@ -57,18 +57,11 @@ select:focus-visible {
    border shows through the gap. */
 .clip-frame {
   position: relative;
-  padding: 1px;
-  background: var(--color-urp-border);
+  padding: 0;
+  background: transparent;
   --c-frame: 16px;
   --c-surface: 15px;
-  clip-path: polygon(
-    var(--c-frame) 0,
-    100% 0,
-    100% calc(100% - var(--c-frame)),
-    calc(100% - var(--c-frame)) 100%,
-    0 100%,
-    0 var(--c-frame)
-  );
+  clip-path: none;
 }
 .clip-surface {
   position: relative;
@@ -81,6 +74,7 @@ select:focus-visible {
     0 100%,
     0 var(--c-surface)
   );
+  filter: drop-shadow(1px 0 0 rgba(255,255,255,.10)) drop-shadow(-1px 0 0 rgba(255,255,255,.10)) drop-shadow(0 1px 0 rgba(255,255,255,.10)) drop-shadow(0 -1px 0 rgba(255,255,255,.10));
 }
 .clip-btn {
   --c-frame: 8px;
@@ -95,13 +89,13 @@ select:focus-visible {
   --c-surface: 15px;
 }
 .clip-frame:focus-within {
-  background: rgba(54, 192, 255, 0.55);
+  filter: drop-shadow(1px 0 0 rgba(54,192,255,.65)) drop-shadow(-1px 0 0 rgba(54,192,255,.65)) drop-shadow(0 1px 0 rgba(54,192,255,.65)) drop-shadow(0 -1px 0 rgba(54,192,255,.65));
 }
 .clip-frame.is-selected {
-  background: var(--color-urp-cyan);
+  filter: drop-shadow(1px 0 0 var(--color-urp-cyan)) drop-shadow(-1px 0 0 var(--color-urp-cyan)) drop-shadow(0 1px 0 var(--color-urp-cyan)) drop-shadow(0 -1px 0 var(--color-urp-cyan));
 }
 .clip-frame.is-accent {
-  background: var(--color-urp-purple);
+  filter: drop-shadow(1px 0 0 var(--color-urp-purple)) drop-shadow(-1px 0 0 var(--color-urp-purple)) drop-shadow(0 1px 0 var(--color-urp-purple)) drop-shadow(0 -1px 0 var(--color-urp-purple));
 }
 
 /* ---------- Scrollbars ---------- */
@@ -161,13 +155,13 @@ select:focus-visible {
   cursor: move;
 }
 .react-flow__node:hover .clip-frame {
-  background: var(--color-urp-border-strong);
+  filter: drop-shadow(1px 0 0 rgba(255,255,255,.22)) drop-shadow(-1px 0 0 rgba(255,255,255,.22)) drop-shadow(0 1px 0 rgba(255,255,255,.22)) drop-shadow(0 -1px 0 rgba(255,255,255,.22));
 }
 .react-flow__node.selected .clip-frame {
-  background: var(--color-urp-cyan);
+  filter: drop-shadow(1px 0 0 var(--color-urp-cyan)) drop-shadow(-1px 0 0 var(--color-urp-cyan)) drop-shadow(0 1px 0 var(--color-urp-cyan)) drop-shadow(0 -1px 0 var(--color-urp-cyan));
 }
 .react-flow__node.selected:hover .clip-frame {
-  background: var(--color-urp-cyan);
+  filter: drop-shadow(1px 0 0 var(--color-urp-cyan)) drop-shadow(-1px 0 0 var(--color-urp-cyan)) drop-shadow(0 1px 0 var(--color-urp-cyan)) drop-shadow(0 -1px 0 var(--color-urp-cyan));
 }
 .react-flow__handle {
   width: 10px;

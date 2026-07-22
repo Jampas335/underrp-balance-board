@@ -79,8 +79,8 @@ function NodeShell({ nodeId, width, children, className, accentColor }: NodeShel
       )}
       style={{ width }}
     >
-      <div className="clip-frame clip-block" style={accentColor ? { background: `${accentColor}88` } : undefined}>
-        <div className="clip-surface">{children}</div>
+      <div className="clip-frame clip-block">
+        <div className="clip-surface" style={accentColor ? { background: `${accentColor}12` } : undefined}>{children}</div>
       </div>
     </div>
   );
