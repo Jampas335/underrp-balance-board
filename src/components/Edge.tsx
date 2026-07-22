@@ -119,7 +119,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
               style={{ background: `${color}55` }}
             >
               <div
-                className="clip-surface flex items-center gap-1.5 px-2 py-1"
+                className="clip-surface flex items-center gap-2.5 whitespace-nowrap px-3 py-1.5"
                 style={{ background: "rgba(11, 13, 20, 0.96)" }}
               >
                 <span
