@@ -59,8 +59,13 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
     }
   }
 
-  const labelX = (sourceX + targetX) / 2;
-  const labelY = (sourceY + targetY) / 2;
+  // Keep the relationship label attached to the outgoing horizontal segment.
+  // This avoids stacking every label in the middle of a shared vertical lane.
+  const horizontalFlow = sourcePosition === "right" || sourcePosition === "left";
+  const direction = sourcePosition === "left" ? -1 : 1;
+  const gap = Math.min(54, Math.max(26, Math.abs(targetX - sourceX) * 0.22));
+  const labelX = horizontalFlow ? sourceX + direction * gap : (sourceX + targetX) / 2;
+  const labelY = horizontalFlow ? sourceY : (sourceY + targetY) / 2;
 
   return (
     <>
