@@ -81,7 +81,7 @@ export function Sidebar() {
       </div>
 
       {/* Category filters */}
-      <div className="flex flex-wrap gap-1 px-3 pb-2">
+      <div className="urp-scroll flex max-h-[112px] flex-wrap content-start gap-1.5 overflow-y-auto px-3 pb-2">
         <CatChip
           active={activeCategory === null}
           onClick={() => setActiveCategory(null)}
@@ -186,10 +186,10 @@ function CatChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "font-mono text-[9px] uppercase tracking-wider transition-colors",
+        "border px-1.5 py-1 font-mono text-[9px] uppercase leading-none tracking-wider transition-colors",
         active
-          ? "text-urp-cyan"
-          : "text-white/40 hover:text-white/78"
+          ? "border-urp-cyan/45 bg-urp-cyan/10 text-urp-cyan"
+          : "border-white/8 bg-white/[0.02] text-white/45 hover:border-white/20 hover:bg-white/[0.05] hover:text-white/80"
       )}
     >
       {label}
