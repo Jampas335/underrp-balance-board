@@ -577,7 +577,7 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
   const deleteEdge = useBoard((s) => s.deleteEdge);
   const u = (patch: Partial<EdgeData>) => updateEdge(id, patch);
 
-  const edgeTypes: EdgeType[] = ["REQUER", "ENTREGA", "PAGA", "ALIMENTA"];
+  const edgeTypes: EdgeType[] = ["REQUER", "ENTREGA", "PAGA", "ALIMENTA", "CRAFTA"];
 
   return (
     <>

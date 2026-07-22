@@ -12,7 +12,7 @@ export type ActivityStatus = "Ativo" | "Pausado" | "Rascunho";
 
 export type MoneyType = "limpo" | "sujo";
 
-export type EdgeType = "REQUER" | "ENTREGA" | "PAGA" | "ALIMENTA";
+export type EdgeType = "REQUER" | "ENTREGA" | "PAGA" | "ALIMENTA" | "CRAFTA";
 
 export type BlockKind = "activity" | "item" | "money" | "note";
 
@@ -30,6 +30,7 @@ export interface ActivityData {
   paymentMax: number;
   moneyType: MoneyType;
   observation: string;
+  imageUrl?: string;
   [key: string]: unknown;
 }
 
@@ -43,6 +44,7 @@ export interface ItemData {
   color: string;
   referenceValue: number;
   observation: string;
+  imageUrl?: string;
   [key: string]: unknown;
 }
 
@@ -95,6 +97,7 @@ export const EDGE_COLORS: Record<EdgeType, string> = {
   ENTREGA: "#36c0ff",
   PAGA: "#22c55e",
   ALIMENTA: "#8b5cf6",
+  CRAFTA: "#facc15",
 };
 
 export const EDGE_LABELS: Record<EdgeType, string> = {
@@ -102,6 +105,7 @@ export const EDGE_LABELS: Record<EdgeType, string> = {
   ENTREGA: "ENTREGA",
   PAGA: "PAGA",
   ALIMENTA: "ALIMENTA",
+  CRAFTA: "CRAFTA",
 };
 
 export const ACTIVITY_CATEGORIES: ActivityCategory[] = [

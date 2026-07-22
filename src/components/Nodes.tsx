@@ -187,7 +187,11 @@ function ItemNodeInner({ id, data }: NodeProps<BoardNode>) {
             border: `1px solid ${d.color}40`,
           }}
         >
-          <Icon size={16} style={{ color: d.color }} strokeWidth={1.5} />
+          {typeof d.imageUrl === "string" ? (
+            <img src={d.imageUrl} alt="" width={36} height={36} loading="lazy" className="h-full w-full object-contain" />
+          ) : (
+            <Icon size={16} style={{ color: d.color }} strokeWidth={1.5} />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <div className="truncate font-display text-base font-600 uppercase leading-tight tracking-wide text-white">

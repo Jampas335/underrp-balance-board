@@ -366,6 +366,7 @@ export function createItemNode(
       icon: item.icon,
       color: item.color,
       referenceValue: item.referenceValue,
+      imageUrl: item.imageUrl,
       observation: "",
     },
   };
@@ -379,6 +380,7 @@ export function resolveEdgeType(
   if (sourceKind === "activity" && targetKind === "item") return "ENTREGA";
   if (sourceKind === "activity" && targetKind === "money") return "PAGA";
   if (sourceKind === "activity" && targetKind === "activity") return "ALIMENTA";
+  if (sourceKind === "item" && targetKind === "item") return "CRAFTA";
   return null;
 }
 

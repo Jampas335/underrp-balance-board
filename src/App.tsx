@@ -108,11 +108,7 @@ function AppInner() {
   }, [loaded, rf]);
 
   const nodes = useMemo(
-    () =>
-      storeNodes.map((n) => ({
-        ...n,
-        selected: n.id === selectedNodeId,
-      })),
+    () => storeNodes.map((n) => ({ ...n, selected: n.id === selectedNodeId || n.selected })),
     [storeNodes, selectedNodeId]
   );
 
@@ -327,6 +323,11 @@ function AppInner() {
             onPaneClick={onPaneClick}
             onNodeClick={onNodeClick}
             onEdgeClick={onEdgeClick}
+            selectionOnDrag
+            selectionMode="partial"
+            panOnDrag={[1, 2]}
+            selectionKeyCode="Control"
+            multiSelectionKeyCode="Control"
             nodesDraggable={editingEnabled}
             nodesConnectable={editingEnabled}
             deleteKeyCode="Delete"
