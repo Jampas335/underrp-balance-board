@@ -54,7 +54,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
       if (data.qtyMin === data.qtyMax) {
         labelParts.push(`${data.qtyMin}x`);
       } else {
-        labelParts.push(`${data.qtyMin}�${data.qtyMax}x`);
+        labelParts.push(`${data.qtyMin}-${data.qtyMax}x`);
       }
     }
     if (data.chance < 100) {
