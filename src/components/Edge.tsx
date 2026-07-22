@@ -27,6 +27,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
 
   const selectedNodeId = useBoard((s) => s.selectedNodeId);
   const selectedEdgeId = useBoard((s) => s.selectedEdgeId);
+  const allEdges = useBoard((s) => s.edges);
 
   const edgeType = data?.edgeType ?? "ENTREGA";
   const color = EDGE_COLORS[edgeType];
@@ -66,8 +67,14 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
   const horizontalFlow = sourcePosition === "right" || sourcePosition === "left";
   const direction = sourcePosition === "left" ? -1 : 1;
   const gap = Math.min(54, Math.max(26, Math.abs(targetX - sourceX) * 0.22));
-  const labelX = horizontalFlow ? sourceX + direction * gap : (sourceX + targetX) / 2;
-  const labelY = horizontalFlow ? sourceY : (sourceY + targetY) / 2;
+  const outgoingCount = allEdges.filter((edge) => edge.source === source).length;
+  const useTargetLabel = horizontalFlow && outgoingCount > 1;
+  const labelX = horizontalFlow
+    ? useTargetLabel
+      ? targetX - direction * gap
+      : sourceX + direction * gap
+    : (sourceX + targetX) / 2;
+  const labelY = horizontalFlow ? (useTargetLabel ? targetY : sourceY) : (sourceY + targetY) / 2;
 
   return (
     <>
