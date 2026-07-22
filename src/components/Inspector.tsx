@@ -565,6 +565,10 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
             />
           </Field>
         </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Field label="Revenda mín."><NumberInput value={data.resaleMin || 0} onChange={(v) => u({ resaleMin: v })} onCommit={commit} min={0} /></Field>
+          <Field label="Revenda máx."><NumberInput value={data.resaleMax || 0} onChange={(v) => u({ resaleMax: v })} onCommit={commit} min={0} /></Field>
+        </div>
         <Field label="Chance">
           <NumberInput
             value={data.chance}

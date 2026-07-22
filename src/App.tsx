@@ -232,6 +232,8 @@ function AppInner() {
           chance: 100,
           consumes: true,
           observation: "",
+          resaleMin: 0,
+          resaleMax: 0,
         },
       };
       addEdge(edge);

@@ -62,6 +62,12 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
     if (data.chance < 100) {
       labelParts.push(`${data.chance}%`);
     }
+    const resaleMin = data.resaleMin || 0;
+    const resaleMax = data.resaleMax || 0;
+    if (resaleMin !== 0 || resaleMax !== 0) {
+      const fmt = (value: number) => `$${value.toLocaleString("pt-BR")}`;
+      labelParts.push(resaleMin === 0 ? fmt(resaleMax) : resaleMax === 0 || resaleMin === resaleMax ? fmt(resaleMin) : `${fmt(resaleMin)}-${fmt(resaleMax)}`);
+    }
   }
 
   // Keep the relationship label attached to the outgoing horizontal segment.

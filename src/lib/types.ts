@@ -76,6 +76,8 @@ export interface EdgeData {
   chance: number;
   consumes: boolean;
   observation: string;
+  resaleMin?: number;
+  resaleMax?: number;
   [key: string]: unknown;
 }
 
