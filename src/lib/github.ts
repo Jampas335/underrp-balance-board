@@ -1,4 +1,4 @@
-import type { BoardEdge, BoardNode } from "./types";
+﻿import type { BoardEdge, BoardNode } from "./types";
 
 const OWNER = import.meta.env.VITE_GITHUB_OWNER || "Jampas335";
 const REPOSITORY = import.meta.env.VITE_GITHUB_REPOSITORY || "underp-itens";
@@ -162,3 +162,4 @@ export async function saveRemoteBoard(
   const result = (await response.json()) as { content?: { sha?: string } };
   return { sha: result.content?.sha || null, updatedAt };
 }
+

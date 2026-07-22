@@ -54,7 +54,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
       if (data.qtyMin === data.qtyMax) {
         labelParts.push(`${data.qtyMin}x`);
       } else {
-        labelParts.push(`${data.qtyMin}–${data.qtyMax}x`);
+        labelParts.push(`${data.qtyMin}�${data.qtyMax}x`);
       }
     }
     if (data.chance < 100) {
@@ -121,7 +121,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
                   {edgeType}
                 </span>
                 <span className="font-mono text-[9px] tabular-nums text-white/56">
-                  {labelParts.join(" Â· ")}
+                  {labelParts.join(" · ")}
                 </span>
               </div>
             </button>
@@ -137,4 +137,5 @@ export const UnderEdge = memo(UnderEdgeInner);
 export const edgeTypes = {
   under: UnderEdge,
 };
+
 

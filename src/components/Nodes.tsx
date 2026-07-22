@@ -1,4 +1,4 @@
-import { memo } from "react";
+﻿import { memo } from "react";
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import {
   Cpu,
@@ -282,3 +282,4 @@ export const nodeTypes = {
   money: MoneyNode,
   note: NoteNode,
 };
+

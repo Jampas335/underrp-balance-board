@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 import {
   Search,
   Undo2,
@@ -321,3 +321,4 @@ export function TopBar({
     </header>
   );
 }
+

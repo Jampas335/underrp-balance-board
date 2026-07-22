@@ -1,4 +1,4 @@
-import type { Node, Edge } from "@xyflow/react";
+﻿import type { Node, Edge } from "@xyflow/react";
 
 export type ActivityCategory =
   | "Criminal"
@@ -119,3 +119,4 @@ export const ACTIVITY_CATEGORIES: ActivityCategory[] = [
 ];
 
 export const ACTIVITY_STATUSES: ActivityStatus[] = ["Ativo", "Pausado", "Rascunho"];
+

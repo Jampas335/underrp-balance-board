@@ -14,7 +14,7 @@ export function subscribeCatalog(listener: () => void): () => void {
 
 export async function loadRemoteCatalog(): Promise<number> {
   const response = await fetch(`${CATALOG_SOURCE_URL}?t=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`CatÃ¡logo indisponÃ­vel (${response.status})`);
+  if (!response.ok) throw new Error(`Catálogo indisponível (${response.status})`);
   const payload = (await response.json()) as { items?: Array<Record<string, unknown>> };
   const items = (payload.items ?? [])
     .filter((item) => typeof item.id === "string" && typeof item.name === "string")
@@ -28,7 +28,7 @@ export async function loadRemoteCatalog(): Promise<number> {
       color: String(item.type) === "weapon" ? "#f59e0b" : "#36c0ff",
       imageUrl: typeof item.imageUrl === "string" ? item.imageUrl : undefined,
     }));
-  if (!items.length) throw new Error("CatÃ¡logo remoto vazio");
+  if (!items.length) throw new Error("Catálogo remoto vazio");
   CATALOG = items;
   CATALOG_CATEGORIES = [...new Set(items.map((item) => item.category))].sort((a, b) => a.localeCompare(b, "pt-BR"));
   catalogListeners.forEach((listener) => listener());
@@ -45,7 +45,7 @@ export function buildInitialNodes(): BoardNode[] {
     name: "Mergulho Ilegal",
     category: "Criminal",
     status: "Ativo",
-    description: "Recupera materiais submersos em Ã¡rea restrita.",
+    description: "Recupera materiais submersos em área restrita.",
     durationMin: 20,
     playersMin: 1,
     playersMax: 2,
@@ -58,10 +58,10 @@ export function buildInitialNodes(): BoardNode[] {
 
   const mineracao: ActivityData = {
     kind: "activity",
-    name: "MineraÃ§Ã£o",
+    name: "Mineração",
     category: "Industrial",
     status: "Ativo",
-    description: "ExtraÃ§Ã£o de minÃ©rio bruto em pedreira.",
+    description: "Extração de minério bruto em pedreira.",
     durationMin: 15,
     playersMin: 1,
     playersMax: 3,
@@ -74,10 +74,10 @@ export function buildInitialNodes(): BoardNode[] {
 
   const fundicao: ActivityData = {
     kind: "activity",
-    name: "FundiÃ§Ã£o",
+    name: "Fundição",
     category: "Industrial",
     status: "Ativo",
-    description: "Refina minÃ©rio em lingotes comercializÃ¡veis.",
+    description: "Refina minério em lingotes comercializáveis.",
     durationMin: 10,
     playersMin: 1,
     playersMax: 2,
@@ -85,7 +85,7 @@ export function buildInitialNodes(): BoardNode[] {
     paymentMin: 0,
     paymentMax: 0,
     moneyType: "limpo",
-    observation: "Processamento intermediÃ¡rio.",
+    observation: "Processamento intermediário.",
   };
 
   const sucatItem = findCatalogItem("sucata_eletronica")!;
@@ -231,7 +231,7 @@ export function buildInitialNodes(): BoardNode[] {
       data: {
         kind: "note",
         title: "ECONOMIA GERAL",
-        text: "Mapa tÃ©cnico de atividades, itens e fluxos de valor do UnderRP.",
+        text: "Mapa técnico de atividades, itens e fluxos de valor do UnderRP.",
       },
     },
   ];
@@ -355,6 +355,7 @@ export function buildInitialEdges(): BoardEdge[] {
     },
   ];
 }
+
 
 
 

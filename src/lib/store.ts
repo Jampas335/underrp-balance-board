@@ -1,4 +1,4 @@
-import { create } from "zustand";
+﻿import { create } from "zustand";
 import type { BoardNode, BoardEdge, EdgeType, BlockData, ActivityData } from "./types";
 import { buildInitialNodes, buildInitialEdges, findCatalogItem } from "./data";
 
@@ -455,3 +455,4 @@ export function computeAnalysis(
     hasMoney: !!moneyEdge,
   };
 }
+

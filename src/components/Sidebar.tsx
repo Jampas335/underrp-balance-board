@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import {
   Cpu,
   Gem,
@@ -196,3 +196,4 @@ function CatChip({
     </button>
   );
 }
+

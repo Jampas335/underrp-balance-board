@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --color-urp-bg-top: #070912;
@@ -342,3 +342,4 @@ select:focus-visible {
 .has-tooltip:hover .urp-tooltip {
   opacity: 1;
 }
+
