@@ -14,7 +14,7 @@ import { useBoard, resolveEdgeType, createItemNode } from "./lib/store";
 import { EDGE_COLORS } from "./lib/types";
 import type { BoardEdge } from "./lib/types";
 import { getSessionToken, loadRemoteBoard } from "./lib/github";
-import { loadRemoteCatalog } from "./lib/data";
+import { CATALOG, loadRemoteCatalog } from "./lib/data";
 import { nodeTypes } from "./components/Nodes";
 import { edgeTypes } from "./components/Edge";
 import { TopBar } from "./components/TopBar";
@@ -68,11 +68,30 @@ function AppInner() {
     if (getSessionToken()) setEditingEnabled(true);
     let active = true;
 
-    void loadRemoteCatalog().catch(() => {
+    void loadRemoteCatalog().then(() => {
+      const current = useBoard.getState();
+      const byId = new Map(CATALOG.map((item) => [item.id, item]));
+      const hydrated = current.nodes.map((node) => {
+        if (node.data.kind !== "item") return node;
+        const catalogItem = byId.get(node.data.itemId) || byId.get(node.data.identifier);
+        return catalogItem?.imageUrl
+          ? { ...node, data: { ...node.data, imageUrl: catalogItem.imageUrl } }
+          : node;
+      });
+      useBoard.setState({ nodes: hydrated });
+    }).catch(() => {
       // O catálogo local continua disponível como fallback offline.
     });
     const catalogRefresh = window.setInterval(() => {
-      void loadRemoteCatalog().catch(() => undefined);
+      void loadRemoteCatalog().then(() => {
+        const current = useBoard.getState();
+        const byId = new Map(CATALOG.map((item) => [item.id, item]));
+        useBoard.setState({ nodes: current.nodes.map((node) => {
+          if (node.data.kind !== "item") return node;
+          const item = byId.get(node.data.itemId) || byId.get(node.data.identifier);
+          return item?.imageUrl ? { ...node, data: { ...node.data, imageUrl: item.imageUrl } } : node;
+        }) });
+      }).catch(() => undefined);
     }, 5 * 60 * 1000);
 
     void loadRemoteBoard()
@@ -325,7 +344,7 @@ function AppInner() {
             onEdgeClick={onEdgeClick}
             selectionOnDrag
             selectionMode="partial"
-            panOnDrag={false}
+            panOnDrag={[1, 2]}
             selectionKeyCode="Control"
             multiSelectionKeyCode="Control"
             nodesDraggable={editingEnabled}
@@ -347,6 +366,9 @@ function AppInner() {
             />
           </ReactFlow>
           <ZoomControls />
+          <div className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 border border-white/10 bg-urp-surface/90 px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider text-white/45 shadow-[0_8px_24px_rgba(0,0,0,.2)]">
+            Botão do meio: mover canvas&nbsp;&nbsp;·&nbsp;&nbsp;Scroll: zoom&nbsp;&nbsp;·&nbsp;&nbsp;Arraste vazio: selecionar&nbsp;&nbsp;·&nbsp;&nbsp;Ctrl + clique: adicionar
+          </div>
           <Inspector />
           <Toast />
         </div>
