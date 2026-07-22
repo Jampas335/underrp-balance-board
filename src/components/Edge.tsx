@@ -1,4 +1,4 @@
-import { memo } from "react";
+﻿import { memo } from "react";
 import {
   BaseEdge,
   EdgeLabelRenderer,
@@ -49,10 +49,12 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
 
   const labelParts: string[] = [];
   if (data) {
-    if (data.qtyMin === data.qtyMax) {
-      labelParts.push(`${data.qtyMin}x`);
-    } else {
-      labelParts.push(`${data.qtyMin}–${data.qtyMax}x`);
+    if (data.qtyMin !== 0 || data.qtyMax !== 0) {
+      if (data.qtyMin === data.qtyMax) {
+        labelParts.push(`${data.qtyMin}x`);
+      } else {
+        labelParts.push(`${data.qtyMin}–${data.qtyMax}x`);
+      }
     }
     if (data.chance < 100) {
       labelParts.push(`${data.chance}%`);
@@ -112,7 +114,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
                   {edgeType}
                 </span>
                 <span className="font-mono text-[9px] tabular-nums text-white/56">
-                  {labelParts.join(" · ")}
+                  {labelParts.join(" Â· ")}
                 </span>
               </div>
             </button>
@@ -128,3 +130,4 @@ export const UnderEdge = memo(UnderEdgeInner);
 export const edgeTypes = {
   under: UnderEdge,
 };
+
