@@ -136,9 +136,9 @@ function AppInner() {
         }
       }
       const updates = changes.filter(
-        (c) => c.type === "position" || c.type === "dimensions"
+        (c) => c.type === "position" || c.type === "dimensions" || c.type === "select"
       );
-      if (updates.length > 0 && editingEnabled) {
+      if (updates.length > 0 && (editingEnabled || updates.every((change) => change.type === "select"))) {
         const currentNodes = useBoard.getState().nodes;
         const updated = applyNodeChanges(updates, currentNodes);
         setNodes(updated);
@@ -325,7 +325,7 @@ function AppInner() {
             onEdgeClick={onEdgeClick}
             selectionOnDrag
             selectionMode="partial"
-            panOnDrag={[1, 2]}
+            panOnDrag={false}
             selectionKeyCode="Control"
             multiSelectionKeyCode="Control"
             nodesDraggable={editingEnabled}
