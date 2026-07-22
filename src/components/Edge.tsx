@@ -83,6 +83,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
       : sourceX + direction * gap
     : (sourceX + targetX) / 2;
   const labelY = horizontalFlow ? (useTargetLabel ? targetY : sourceY) : (sourceY + targetY) / 2;
+  const labelTransform = useTargetLabel ? "translate(-100%, -50%)" : "translate(0, -50%)";
 
   return (
     <>
@@ -102,7 +103,7 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
             className="nodrag nopan"
             style={{
               position: "absolute",
-              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+              transform: `${labelTransform} translate(${labelX}px, ${labelY}px)`,
               pointerEvents: "all",
             }}
           >
