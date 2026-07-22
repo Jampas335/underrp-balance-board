@@ -65,9 +65,10 @@ interface NodeShellProps {
   width: number;
   children: React.ReactNode;
   className?: string;
+  accentColor?: string;
 }
 
-function NodeShell({ nodeId, width, children, className }: NodeShellProps) {
+function NodeShell({ nodeId, width, children, className, accentColor }: NodeShellProps) {
   const dimmed = useDimmed(nodeId);
   return (
     <div
@@ -78,7 +79,7 @@ function NodeShell({ nodeId, width, children, className }: NodeShellProps) {
       )}
       style={{ width }}
     >
-      <div className="clip-frame clip-block">
+      <div className="clip-frame clip-block" style={accentColor ? { background: `${accentColor}88` } : undefined}>
         <div className="clip-surface">{children}</div>
       </div>
     </div>
@@ -99,7 +100,7 @@ function ActivityNodeInner({ id, data }: NodeProps<BoardNode>) {
   const hasPayment = d.paymentMin > 0 || d.paymentMax > 0;
 
   return (
-    <NodeShell nodeId={id} width={240}>
+    <NodeShell nodeId={id} width={240} accentColor={d.accentColor}>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
       <div className="px-4 py-3">
@@ -176,7 +177,7 @@ function ItemNodeInner({ id, data }: NodeProps<BoardNode>) {
   const hasValue = d.referenceValue > 0;
 
   return (
-    <NodeShell nodeId={id} width={210}>
+    <NodeShell nodeId={id} width={210} accentColor="#36c0ff">
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
       <div className="flex items-center gap-3 px-3 py-3">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import {
   X,
   ChevronDown,
@@ -237,22 +237,20 @@ function ActivityInspector({
             />
           </Field>
         </div>
-        <Field label="Descrição curta">
+        <Field label="DescriÃ§Ã£o curta">
           <TextArea
             value={data.description}
             onChange={(v) => u({ description: v })}
             onCommit={commit}
-            placeholder="O que esta atividade faz…"
+            placeholder="O que esta atividade fazâ€¦"
           />
         </Field>
-      </div>
+      </div>\r\n      <Field label="Cor do bloco">\r\n        <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>\r\n      </Field>\r\n      <div className="urp-divider mx-4" />
 
-      <div className="urp-divider mx-4" />
-
-      <SectionTitle>Parâmetros</SectionTitle>
+      <SectionTitle>ParÃ¢metros</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
         <div className="grid grid-cols-2 gap-2">
-          <Field label="Duração">
+          <Field label="DuraÃ§Ã£o">
             <NumberInput
               value={data.durationMin}
               onChange={(v) => u({ durationMin: v })}
@@ -272,7 +270,7 @@ function ActivityInspector({
           </Field>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <Field label="Jogadores mín.">
+          <Field label="Jogadores mÃ­n.">
             <NumberInput
               value={data.playersMin}
               onChange={(v) => u({ playersMin: v })}
@@ -280,7 +278,7 @@ function ActivityInspector({
               min={1}
             />
           </Field>
-          <Field label="Jogadores máx.">
+          <Field label="Jogadores mÃ¡x.">
             <NumberInput
               value={data.playersMax}
               onChange={(v) => u({ playersMax: v })}
@@ -289,14 +287,12 @@ function ActivityInspector({
             />
           </Field>
         </div>
-      </div>
-
-      <div className="urp-divider mx-4" />
+      </div>\r\n      <Field label="Cor do bloco">\r\n        <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>\r\n      </Field>\r\n      <div className="urp-divider mx-4" />
 
       <SectionTitle>Pagamento</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
         <div className="grid grid-cols-2 gap-2">
-          <Field label="Mínimo">
+          <Field label="MÃ­nimo">
             <NumberInput
               value={data.paymentMin}
               onChange={(v) => u({ paymentMin: v })}
@@ -304,7 +300,7 @@ function ActivityInspector({
               min={0}
             />
           </Field>
-          <Field label="Máximo">
+          <Field label="MÃ¡ximo">
             <NumberInput
               value={data.paymentMax}
               onChange={(v) => u({ paymentMax: v })}
@@ -321,17 +317,15 @@ function ActivityInspector({
             options={["limpo", "sujo"] as const}
           />
         </Field>
-      </div>
+      </div>\r\n      <Field label="Cor do bloco">\r\n        <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>\r\n      </Field>\r\n      <div className="urp-divider mx-4" />
 
-      <div className="urp-divider mx-4" />
-
-      <SectionTitle>Observação</SectionTitle>
+      <SectionTitle>ObservaÃ§Ã£o</SectionTitle>
       <div className="px-4 pb-3">
         <TextArea
           value={data.observation}
           onChange={(v) => u({ observation: v })}
           onCommit={commit}
-          placeholder="Notas internas…"
+          placeholder="Notas internasâ€¦"
         />
       </div>
 
@@ -343,7 +337,7 @@ function ActivityInspector({
           onClick={() => setAnalysisOpen((v) => !v)}
           className="flex w-full items-center justify-between"
         >
-          <span className="urp-section-title">Análise</span>
+          <span className="urp-section-title">AnÃ¡lise</span>
           {analysisOpen ? (
             <ChevronDown size={14} className="text-white/40" />
           ) : (
@@ -353,7 +347,7 @@ function ActivityInspector({
         {analysisOpen && (
           <div className="urp-fade mt-2 space-y-1.5">
             <p className="font-mono text-[9px] uppercase tracking-wider text-white/28">
-              Estimativa — não é garantia
+              Estimativa â€” nÃ£o Ã© garantia
             </p>
             {analysis.breakdown.length === 0 && !analysis.hasMoney && (
               <p className="font-mono text-[10px] text-white/32">
@@ -368,7 +362,7 @@ function ActivityInspector({
                 <span className="truncate text-white/56">{b.name}</span>
                 <span className="flex items-center gap-1.5 tabular-nums text-white/40">
                   <span>
-                    {b.avgQty}x · {b.chance}%
+                    {b.avgQty}x Â· {b.chance}%
                   </span>
                   <span className="text-urp-cyan">
                     {fmtMoney(Math.round(b.expected))}
@@ -378,7 +372,7 @@ function ActivityInspector({
             ))}
             {analysis.hasMoney && (
               <div className="flex items-center justify-between gap-2 font-mono text-[10px]">
-                <span className="text-white/56">Dinheiro médio</span>
+                <span className="text-white/56">Dinheiro mÃ©dio</span>
                 <span className="tabular-nums text-urp-green">
                   {fmtMoney(Math.round(analysis.moneyExpected))}
                 </span>
@@ -444,7 +438,7 @@ function ItemInspector({ id, data }: { id: string; data: ItemData }) {
             {data.category}
           </div>
         </Field>
-        <Field label="Valor de referência">
+        <Field label="Valor de referÃªncia">
           <NumberInput
             value={data.referenceValue}
             onChange={(v) => u({ referenceValue: v })}
@@ -454,13 +448,13 @@ function ItemInspector({ id, data }: { id: string; data: ItemData }) {
         </Field>
       </div>
       <div className="urp-divider mx-4" />
-      <SectionTitle>Observação local</SectionTitle>
+      <SectionTitle>ObservaÃ§Ã£o local</SectionTitle>
       <div className="px-4 pb-3">
         <TextArea
           value={data.observation}
           onChange={(v) => u({ observation: v })}
           onCommit={commit}
-          placeholder="Notas sobre este item no quadro…"
+          placeholder="Notas sobre este item no quadroâ€¦"
         />
       </div>
     </>
@@ -482,7 +476,7 @@ function MoneyInspector({ id, data }: { id: string; data: MoneyData }) {
     <>
       <SectionTitle>Dinheiro</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
-        <Field label="Rótulo">
+        <Field label="RÃ³tulo">
           <TextInput
             value={data.label}
             onChange={(v) => u({ label: v })}
@@ -499,7 +493,7 @@ function MoneyInspector({ id, data }: { id: string; data: MoneyData }) {
           />
         </Field>
         <div className="grid grid-cols-2 gap-2">
-          <Field label="Mínimo">
+          <Field label="MÃ­nimo">
             <NumberInput
               value={data.amountMin}
               onChange={(v) => u({ amountMin: v })}
@@ -507,7 +501,7 @@ function MoneyInspector({ id, data }: { id: string; data: MoneyData }) {
               min={0}
             />
           </Field>
-          <Field label="Máximo">
+          <Field label="MÃ¡ximo">
             <NumberInput
               value={data.amountMax}
               onChange={(v) => u({ amountMax: v })}
@@ -526,13 +520,13 @@ function MoneyInspector({ id, data }: { id: string; data: MoneyData }) {
         </Field>
       </div>
       <div className="urp-divider mx-4" />
-      <SectionTitle>Observação</SectionTitle>
+      <SectionTitle>ObservaÃ§Ã£o</SectionTitle>
       <div className="px-4 pb-3">
         <TextArea
           value={data.observation}
           onChange={(v) => u({ observation: v })}
           onCommit={commit}
-          placeholder="Notas internas…"
+          placeholder="Notas internasâ€¦"
         />
       </div>
     </>
@@ -547,14 +541,14 @@ function NoteInspector({ id, data }: { id: string; data: NoteData }) {
 
   return (
     <>
-      <SectionTitle>Anotação</SectionTitle>
+      <SectionTitle>AnotaÃ§Ã£o</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
-        <Field label="Título">
+        <Field label="TÃ­tulo">
           <TextInput
             value={data.title}
             onChange={(v) => u({ title: v })}
             onCommit={commit}
-            placeholder="Título"
+            placeholder="TÃ­tulo"
           />
         </Field>
         <Field label="Texto">
@@ -562,7 +556,7 @@ function NoteInspector({ id, data }: { id: string; data: NoteData }) {
             value={data.text}
             onChange={(v) => u({ text: v })}
             onCommit={commit}
-            placeholder="Texto curto…"
+            placeholder="Texto curtoâ€¦"
           />
         </Field>
       </div>
@@ -581,7 +575,7 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
 
   return (
     <>
-      <SectionTitle>Conexão</SectionTitle>
+      <SectionTitle>ConexÃ£o</SectionTitle>
       <div className="space-y-2.5 px-4 pb-3">
         <Field label="Tipo">
           <SelectInput
@@ -592,7 +586,7 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
           />
         </Field>
         <div className="grid grid-cols-2 gap-2">
-          <Field label="Qtd. mín.">
+          <Field label="Qtd. mÃ­n.">
             <NumberInput
               value={data.qtyMin}
               onChange={(v) => u({ qtyMin: v })}
@@ -600,7 +594,7 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
               min={0}
             />
           </Field>
-          <Field label="Qtd. máx.">
+          <Field label="Qtd. mÃ¡x.">
             <NumberInput
               value={data.qtyMax}
               onChange={(v) => u({ qtyMax: v })}
@@ -629,13 +623,13 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
         </Field>
       </div>
       <div className="urp-divider mx-4" />
-      <SectionTitle>Observação</SectionTitle>
+      <SectionTitle>ObservaÃ§Ã£o</SectionTitle>
       <div className="px-4 pb-3">
         <TextArea
           value={data.observation}
           onChange={(v) => u({ observation: v })}
           onCommit={commit}
-          placeholder="Notas sobre a conexão…"
+          placeholder="Notas sobre a conexÃ£oâ€¦"
         />
       </div>
       <div className="urp-divider mx-4" />
@@ -645,7 +639,7 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
           onClick={() => deleteEdge(id)}
           className="font-mono text-[11px] uppercase tracking-wider text-urp-red/80 transition-colors hover:text-urp-red"
         >
-          Excluir conexão
+          Excluir conexÃ£o
         </button>
       </div>
     </>
@@ -674,8 +668,8 @@ export function Inspector() {
       ? "Item"
       : node.data.kind === "money"
       ? "Dinheiro"
-      : "Anotação"
-    : "Conexão";
+      : "AnotaÃ§Ã£o"
+    : "ConexÃ£o";
 
   return (
     <div className="urp-slide pointer-events-auto absolute right-0 top-0 z-20 flex h-full w-[320px] flex-col">
@@ -747,3 +741,5 @@ export function Inspector() {
     </div>
   );
 }
+
+

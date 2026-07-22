@@ -31,6 +31,7 @@ export interface ActivityData {
   moneyType: MoneyType;
   observation: string;
   imageUrl?: string;
+  accentColor?: string;
   [key: string]: unknown;
 }
 

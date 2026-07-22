@@ -159,7 +159,16 @@ function AppInner() {
       );
       if (updates.length > 0 && (editingEnabled || updates.every((change) => change.type === "select"))) {
         const currentNodes = useBoard.getState().nodes;
-        const updated = applyNodeChanges(updates, currentNodes);
+        const updated = applyNodeChanges(updates, currentNodes).map((node) => {
+          const others = currentNodes.filter((other) => other.id !== node.id);
+          let x = node.position.x;
+          let y = node.position.y;
+          for (const other of others) {
+            if (Math.abs(x - other.position.x) < 12) x = other.position.x;
+            if (Math.abs(y - other.position.y) < 12) y = other.position.y;
+          }
+          return { ...node, position: { x, y } };
+        });
         setNodes(updated);
       }
     },
