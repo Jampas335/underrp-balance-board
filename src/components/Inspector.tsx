@@ -292,9 +292,6 @@ function ActivityInspector({
           </Field>
         </div>
       </div>
-      <Field label="Cor do bloco">
-        <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>
-      </Field>
       <div className="urp-divider mx-4" />
 
       <SectionTitle>Pagamento</SectionTitle>
@@ -326,9 +323,6 @@ function ActivityInspector({
           />
         </Field>
       </div>
-      <Field label="Cor do bloco">
-        <div className="clip-frame clip-btn"><div className="clip-surface flex items-center gap-2 px-2.5 py-1.5"><input type="color" value={data.accentColor || "#36c0ff"} onChange={(e) => u({ accentColor: e.target.value })} className="h-7 w-9 cursor-pointer border-0 bg-transparent p-0" aria-label="Cor do bloco" /><span className="font-mono text-[10px] uppercase tracking-wider text-white/45">Escolher cor</span></div></div>
-      </Field>
       <div className="urp-divider mx-4" />
 
       <SectionTitle>Observação</SectionTitle>
@@ -753,6 +747,7 @@ export function Inspector() {
     </div>
   );
 }
+
 
 
 
