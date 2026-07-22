@@ -40,9 +40,11 @@ function hydrateCatalogNodes() {
   useBoard.setState({
     nodes: current.nodes.map((node) => {
       if (node.data.kind !== "item") return node;
-      const item = byId.get(node.data.itemId) || byId.get(node.data.identifier);
+      const item = byId.get(node.data.itemId) || byId.get(node.data.identifier) || CATALOG.find((candidate) =>
+        candidate.name === node.data.name || candidate.identifier === node.data.itemId || candidate.id === node.data.identifier
+      );
       return item
-        ? { ...node, data: { ...node.data, imageUrl: item.imageUrl, icon: item.icon, color: "#36c0ff" } }
+        ? { ...node, data: { ...node.data, imageUrl: item.imageUrl || `https://jampas335.github.io/underp-itens/ready-items/icons/${item.id}.png`, icon: item.icon, color: "#36c0ff" } }
         : node;
     }),
   });
@@ -93,8 +95,8 @@ function AppInner() {
         const byId = new Map(CATALOG.map((item) => [item.id, item]));
         useBoard.setState({ nodes: current.nodes.map((node) => {
           if (node.data.kind !== "item") return node;
-          const item = byId.get(node.data.itemId) || byId.get(node.data.identifier);
-          return item?.imageUrl ? { ...node, data: { ...node.data, imageUrl: item.imageUrl } } : node;
+          const item = byId.get(node.data.itemId) || byId.get(node.data.identifier) || CATALOG.find((candidate) => candidate.name === node.data.name || candidate.identifier === node.data.itemId || candidate.id === node.data.identifier);
+          return item ? { ...node, data: { ...node.data, imageUrl: item.imageUrl || `https://jampas335.github.io/underp-itens/ready-items/icons/${item.id}.png`, icon: item.icon, color: "#36c0ff" } } : node;
         }) });
       }).catch(() => undefined);
     }, 5 * 60 * 1000);
