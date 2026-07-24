@@ -569,6 +569,12 @@ function EdgeInspector({ id, data }: { id: string; data: EdgeData }) {
           <Field label="Revenda mín."><NumberInput value={data.resaleMin || 0} onChange={(v) => u({ resaleMin: v })} onCommit={commit} min={0} /></Field>
           <Field label="Revenda máx."><NumberInput value={data.resaleMax || 0} onChange={(v) => u({ resaleMax: v })} onCommit={commit} min={0} /></Field>
         </div>
+        {data.edgeType === "REQUER" && (
+          <div className="grid grid-cols-2 gap-2">
+            <Field label="Custo em dinheiro mín."><NumberInput value={data.moneyCostMin || 0} onChange={(v) => u({ moneyCostMin: v })} onCommit={commit} min={0} /></Field>
+            <Field label="Custo em dinheiro máx."><NumberInput value={data.moneyCostMax || 0} onChange={(v) => u({ moneyCostMax: v })} onCommit={commit} min={0} /></Field>
+          </div>
+        )}
         <Field label="Chance">
           <NumberInput
             value={data.chance}

@@ -78,6 +78,8 @@ export interface EdgeData {
   observation: string;
   resaleMin?: number;
   resaleMax?: number;
+  moneyCostMin?: number;
+  moneyCostMax?: number;
   [key: string]: unknown;
 }
 

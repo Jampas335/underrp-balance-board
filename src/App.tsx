@@ -238,6 +238,8 @@ function AppInner() {
           observation: "",
           resaleMin: 0,
           resaleMax: 0,
+          moneyCostMin: 0,
+          moneyCostMax: 0,
         },
       };
       addEdge(edge);

@@ -68,6 +68,12 @@ function UnderEdgeInner(props: EdgeProps<BoardEdge>) {
       const fmt = (value: number) => `$${value.toLocaleString("pt-BR")}`;
       labelParts.push(resaleMin === 0 ? fmt(resaleMax) : resaleMax === 0 || resaleMin === resaleMax ? fmt(resaleMin) : `${fmt(resaleMin)}-${fmt(resaleMax)}`);
     }
+    const moneyCostMin = data.moneyCostMin || 0;
+    const moneyCostMax = data.moneyCostMax || 0;
+    if (edgeType === "REQUER" && (moneyCostMin !== 0 || moneyCostMax !== 0)) {
+      const fmt = (value: number) => `$${value.toLocaleString("pt-BR")}`;
+      labelParts.push(`CUSTO ${moneyCostMin === 0 ? fmt(moneyCostMax) : moneyCostMax === 0 || moneyCostMin === moneyCostMax ? fmt(moneyCostMin) : `${fmt(moneyCostMin)}-${fmt(moneyCostMax)}`}`);
+    }
   }
 
   // Keep the relationship label attached to the outgoing horizontal segment.
